@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Uploader · Why Though?</title>
+<meta name="robots" content="noindex">
+<style>body{margin:0;font-family:system-ui,sans-serif;background:#24104f;color:#fff;line-height:1.6}
+main{max-width:640px;margin:0 auto;padding:48px 20px}h1{color:#ffce2e;font-size:2rem;margin:0}
+a{color:#8cdcff}section{background:rgba(255,255,255,.08);border-radius:14px;padding:18px 22px;margin-top:22px}
+.btn{display:inline-block;background:#fe2c55;color:#fff;text-decoration:none;border-radius:10px;padding:12px 20px;font-weight:700}
+ol{padding-left:20px}small{opacity:.7}</style></head>
+<body><main>
+<h1>Why Though? Uploader</h1>
+<p>Private tool for the owner of the Why Though? science channel. It publishes the channel's own approved videos to its own TikTok account.</p>
+<section>
+<h2>1 · Connect TikTok</h2>
+<p>Sign in with TikTok and allow the uploader to read your basic profile and post videos you approved.</p>
+<p><a class="btn" id="connect" href="#">Continue with TikTok</a></p>
+<small>Permissions asked: user.info.basic, video.publish, video.upload</small>
+</section>
+<section>
+<h2>2 · Post approved videos</h2>
+<ol>
+<li>Each finished video is reviewed and approved by the owner first.</li>
+<li>At the scheduled time the uploader checks the connected account (name and allowed privacy options), uploads the video file with its caption, and posts it.</li>
+<li>The uploader checks the post status until TikTok confirms it is published.</li>
+</ol>
+</section>
+<p><a href="/">← Why Though?</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p>
+</main>
+<script>
+const CLIENT_KEY='__TT_CLIENT_KEY__';
+const p=new URLSearchParams({client_key:CLIENT_KEY,response_type:'code',scope:'user.info.basic,video.publish,video.upload',
+ redirect_uri:'https://askwhythough.github.io/tiktok-callback.html',state:Math.random().toString(36).slice(2)});
+document.getElementById('connect').href='https://www.tiktok.com/v2/auth/authorize/?'+p;
+</script>
+</body></html>

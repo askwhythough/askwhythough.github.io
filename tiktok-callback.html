@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TikTok connected · Why Though?</title>
+<meta name="robots" content="noindex">
+<style>body{margin:0;font-family:system-ui,sans-serif;background:#24104f;color:#fff;line-height:1.6}
+main{max-width:640px;margin:0 auto;padding:48px 20px}h1{color:#ffce2e;font-size:2rem;margin:0 0 8px}
+a{color:#8cdcff}.box{background:rgba(255,255,255,.08);border-radius:14px;padding:18px 20px;margin-top:20px}
+code{display:block;word-break:break-all;background:#140834;border-radius:8px;padding:12px;margin:10px 0;font-size:.95rem}
+button{background:#ffce2e;color:#24104f;border:0;border-radius:10px;padding:10px 18px;font-weight:700;font-size:1rem;cursor:pointer}
+.err{color:#ff9c9c}</style></head>
+<body><main>
+<h1 id="h">Connecting TikTok…</h1>
+<p id="msg">Why Though Uploader</p>
+<div class="box" id="ok" hidden>
+  <p>TikTok authorized the Why Though Uploader for this account. Copy this one-time code and give it to the uploader to finish connecting (it expires in a few minutes):</p>
+  <code id="code"></code>
+  <button id="copy" type="button">Copy code</button>
+</div>
+<p><a href="/">← Why Though?</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p>
+</main>
+<script>
+const q=new URLSearchParams(location.search), code=q.get('code'), err=q.get('error');
+const h=document.getElementById('h'), m=document.getElementById('msg');
+if(code){h.textContent='TikTok connected ✓';m.textContent='Why Though Uploader can now post the channel\'s approved videos to this TikTok account.';
+ document.getElementById('code').textContent=code;document.getElementById('ok').hidden=false;
+ document.getElementById('copy').onclick=async e=>{try{await navigator.clipboard.writeText(code);e.target.textContent='Copied'}catch(_){getSelection().selectAllChildren(document.getElementById('code'))}};}
+else if(err){h.textContent='Not connected';m.className='err';m.textContent='TikTok said: '+(q.get('error_description')||err)+'. Close this page and try again.';}
+else{h.textContent='Nothing to connect';m.textContent='Open this page only from the TikTok sign-in.';}
+history.replaceState(null,'',location.pathname);
+</script>
+</body></html>
