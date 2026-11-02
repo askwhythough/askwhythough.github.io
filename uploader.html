@@ -13,6 +13,7 @@ ol{padding-left:20px}small{opacity:.7}</style></head>
 <section>
 <h2>1 · Connect TikTok</h2>
 <p>Sign in with TikTok and allow the uploader to read your basic profile and post videos you approved.</p>
+<p id="keyrow" hidden><label>Client key<br><input id="ck" autocomplete="off" style="width:100%;padding:10px;border-radius:8px;border:0;margin:6px 0 12px;font-size:1rem"></label></p>
 <p><a class="btn" id="connect" href="#">Continue with TikTok</a></p>
 <small>Permissions asked: user.info.basic, video.publish, video.upload</small>
 </section>
@@ -28,8 +29,12 @@ ol{padding-left:20px}small{opacity:.7}</style></head>
 </main>
 <script>
 const CLIENT_KEY='__TT_CLIENT_KEY__';
-const p=new URLSearchParams({client_key:CLIENT_KEY,response_type:'code',scope:'user.info.basic,video.publish,video.upload',
- redirect_uri:'https://askwhythough.github.io/tiktok-callback.html',state:Math.random().toString(36).slice(2)});
-document.getElementById('connect').href='https://www.tiktok.com/v2/auth/authorize/?'+p;
+const needKey=CLIENT_KEY.startsWith('__'), ck=document.getElementById('ck');
+if(needKey)document.getElementById('keyrow').hidden=false;
+document.getElementById('connect').onclick=e=>{e.preventDefault();
+ const key=needKey?ck.value.trim():CLIENT_KEY; if(!key){ck.focus();return;}
+ const p=new URLSearchParams({client_key:key,response_type:'code',scope:'user.info.basic,video.publish,video.upload',
+  redirect_uri:'https://askwhythough.github.io/tiktok-callback.html',state:Math.random().toString(36).slice(2)});
+ location.href='https://www.tiktok.com/v2/auth/authorize/?'+p;};
 </script>
 </body></html>
